@@ -21,7 +21,7 @@ defineEmits(["deleteAll"])
 <style scoped>
 .detail-footer {
   position: fixed;
-  bottom: 60px;
+  bottom: 40px;
   padding: 16px;
   background-color: white;
   border-top: 1px solid #eee;
