@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-main>
-    <v-system-bar>
+    <!-- <v-system-bar>
       <v-spacer></v-spacer>
 
       <v-icon>mdi-square</v-icon>
@@ -9,13 +9,14 @@
       <v-icon>mdi-circle</v-icon>
 
       <v-icon>mdi-triangle</v-icon>
-    </v-system-bar>
+    </v-system-bar> -->
 
     <v-container fluid>
-        <div class="d-flex h-100">
+        <div class="d-flex h-100 vh-100">
         <v-row>
           <!-- Cột trái: danh sách -->
           <v-col 
+            class="app-left"
             cols="12"
             md="4"
             v-if="!$vuetify.display.smAndDown || !selectedApp"
@@ -40,9 +41,11 @@
                 prepend-inner-icon="mdi-magnify"
                 label="Search applications"
                 dense
+                clearable
                 hide-details
                 variant="outlined"
                 class="ma-2"
+                @click:clear="searchQuery = ''"
                 />
                 <v-chip class="ma-2" color="primary" variant="outlined">
   {{ filteredApps.length }} apps
@@ -121,8 +124,7 @@ html {
   height: 100vh;
 }
 .app-left {
-  width: 300px; /* fix width cột trái */
-  flex-shrink: 0;
+    height: 100vh
 }
 .app-right {
   overflow-y: auto;
@@ -133,34 +135,9 @@ html {
 
 .full-divider {
     position: relative;
-    right: 10px
+    right: 20px
 }
 </style>
-
-
-<!-- <script setup>
-  import { ref } from 'vue'
-``
-  const cards = ['Today', 'Yesterday']
-  const links = [
-    ['mdi-inbox-arrow-down', 'Inbox'],
-    ['mdi-send', 'Send'],
-    ['mdi-delete', 'Trash'],
-    ['mdi-alert-octagon', 'Spam'],
-  ]
-const mails = ref([
-  { title: "Inbox 1", content: "Nội dung thư số 1" },
-  { title: "Inbox 2", content: "Nội dung thư số 2" },
-  { title: "Inbox 3", content: "Nội dung thư số 3" },
-]);
-  const selectedMail = ref(null);
-
-    function selectMail(mail) {
-        selectedMail.value = mail;
-    }
-
-  const drawer = ref(null)
-</script> --> -->
 
 
 <script setup>
@@ -168,6 +145,13 @@ import { ref, computed } from "vue";
 
 const searchQuery = ref("");
 const selectedApp = ref(null);
+
+onMounted(() => {
+  if (!selectedApp.value && filteredApps.value.length > 0) {
+    selectedApp.value = filteredApps.value[0];
+  }
+});
+
 
 const apps = ref([
   {
@@ -196,7 +180,7 @@ const apps = ref([
 // Lọc danh sách theo search
 const filteredApps = computed(() =>
   apps.value.filter((app) =>
-    app.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    app.name?.toLowerCase().includes(searchQuery?.value?.toLowerCase())
   )
 );
 
