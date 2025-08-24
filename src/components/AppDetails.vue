@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <v-col style="flex: 1" cols="12" md="8" v-if="!$vuetify.display.smAndDown || selectedApp">
     <v-btn
       v-if="$vuetify.display.smAndDown && selectedApp"
@@ -36,4 +36,37 @@ defineProps({
 })
 
 defineEmits(["back"])
+</script> -->
+<template>
+  <v-col class="detail-content" style="flex: 1" cols="12" md="8" v-if="!$vuetify.display.smAndDown || selectedApp">
+    <AppDetailHeader 
+      v-if="$vuetify.display.smAndDown && selectedApp" 
+      @back="$emit('back')" 
+      :showBackButton="true"
+    />
+
+    <AppDetailContent :selectedApp="selectedApp" />
+
+    <AppDetailFooter @deleteAll="onDeleteAll" />
+  </v-col>
+</template>
+
+<script setup>
+import AppDetailHeader from './DetailHeader.vue'
+import AppDetailContent from './DetailContent.vue'
+import AppDetailFooter from './DetailsFooter.vue'
+
+function onDeleteAll() {
+  console.log("Delete all clicked")
+}
+
+defineProps({
+  selectedApp: Object
+})
+defineEmits(["back"])
 </script>
+<style scoped>
+.detail-content {
+  padding: 0px;
+}
+</style>

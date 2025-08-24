@@ -13,13 +13,18 @@
             />
 
             <!-- Divider -->
-            <v-divider
+            <!-- <v-divider
               v-if="!$vuetify.display.smAndDown"
               vertical
               class="mx-2 full-divider"
-            />
+            /> -->
 
             <!-- Details -->
+
+            <!-- <DetailContent
+              :selected-app="selectedApp"
+              @back="selectedApp = null"
+            /> -->
             <AppDetails
               :selected-app="selectedApp"
               @back="selectedApp = null"
@@ -85,8 +90,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.full-divider {
+/* .full-divider {
   position: relative;
   right: 20px;
+} */
+::v-deep(.v-main) {
+  overflow: hidden !important;
 }
 </style>

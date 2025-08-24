@@ -1,6 +1,9 @@
 <template>
   <v-col 
-    class="app-left"
+    :class="{
+        'app-left': true,
+        'p-0 full-divider': !$vuetify.display.smAndDown
+    }"
     cols="12"
     md="4"
     v-if="!$vuetify.display.smAndDown || !selectedApp"
@@ -56,8 +59,13 @@ const emit = defineEmits(["update:modelValue", "select-app"])
 <style scoped>
 .app-left {
   height: 100vh;
+  padding: 0;
 }
 .bg-grey-lighten-3 {
   background-color: #f5f5f5;
+}
+
+.full-divider {
+border-right: 1px solid #d5d5d5;
 }
 </style>
