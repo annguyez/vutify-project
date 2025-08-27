@@ -23,19 +23,17 @@
       density="comfortable"
       :rules="captchaRules"
     >
-      <template #append-inner>
-        <v-btn icon="mdi-refresh" variant="text" @click="refreshCaptcha" />
-      </template>
     </v-text-field>
 
     <!-- Captcha Image -->
-    <div class="d-flex justify-center my-3">
+    <div class="d-flex justify-center my-3 ga-2">
       <v-img
         src="https://dummyimage.com/250x60/cccccc/000000&text=YSD6MV"
         height="60"
         width="250"
-        class="rounded"
+        class="rounded captcha"
       />
+      <v-btn icon="mdi-refresh" variant="text" @click="refreshCaptcha" />
     </div>
 
     <!-- Login button -->
@@ -74,3 +72,10 @@ const submit = async () => {
   }
 }
 </script>
+
+
+<style scoped>
+  .captcha :deep(img) {
+    object-fit: inherit;
+  }
+</style>
